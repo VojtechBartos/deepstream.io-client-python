@@ -3,12 +3,12 @@ import ast
 from setuptools import setup
 
 _version_re = re.compile(r"__version__\s+=\s+(.*)")
-with open("deepstream_client/__init__.py", "rb") as f:
+with open("deepstreamio_client/__init__.py", "rb") as f:
     version = str(ast.literal_eval(_version_re.search(
         f.read().decode("utf-8")).group(1)))
 
 setup(
-    name="deepstream_client",
+    name="deepstreamio_client",
     version=version,
     license="MIT",
     description="Python client using the dsh HTTP API",
@@ -18,7 +18,7 @@ setup(
     platforms="any",
     keywords=["deepstream"],
     packages=[
-        "deepstream_client",
+        "deepstreamio_client",
     ],
     include_package_data=True,
     install_requires=[

@@ -1,13 +1,13 @@
 import pytest
 import requests_mock
 
-from deepstream_client import DeepstreamClient, DeepstreamHTTPError
+from deepstreamio_client import Client, DeepstreamioHTTPError
 
 URL = "http://url.com/"
 
 
 def test_not_batched():
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
 
     # success
@@ -56,7 +56,7 @@ def test_not_batched():
 
 
 def test_batched():
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
     client.start_batch()
     client.get_record("recordName")
@@ -97,11 +97,11 @@ def test_batched():
 
 
 def test_invalid_request():
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
 
     with requests_mock.mock() as m:
         m.post(URL, status_code=400, text="Some error")
 
-        with pytest.raises(DeepstreamHTTPError):
+        with pytest.raises(DeepstreamioHTTPError):
             client._execute([{"something": "something"}])

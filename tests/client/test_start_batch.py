@@ -1,7 +1,7 @@
-from deepstream_client import DeepstreamClient
+from deepstreamio_client import Client
 
 
 def test_starting_batch():
-    client = DeepstreamClient("http://url.com")
+    client = Client("http://url.com")
     assert client._batch is None
     assert client.start_batch()._batch == []

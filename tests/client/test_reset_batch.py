@@ -1,4 +1,4 @@
-from deepstream_client import DeepstreamClient
+from deepstreamio_client import Client
 
 
 def test_resetting_batch():
@@ -8,7 +8,7 @@ def test_resetting_batch():
         'recordName': 'some-record',
     }
 
-    client = DeepstreamClient("http://url.com")
+    client = Client("http://url.com")
     client.start_batch().add_to_batch(request)
 
     assert client.start_batch().add_to_batch(request)._batch == [request]

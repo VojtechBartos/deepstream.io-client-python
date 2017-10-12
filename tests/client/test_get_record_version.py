@@ -1,4 +1,4 @@
-from deepstream_client import DeepstreamClient
+from deepstreamio_client import Client
 
 URL = "http://url.com/"
 REQUEST = {
@@ -9,7 +9,7 @@ REQUEST = {
 
 
 def test_not_batched(mocker):
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
 
     mocker.patch.object(client, '_execute')
@@ -31,7 +31,7 @@ def test_not_batched(mocker):
 
 
 def test_batched(mocker):
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
 
     mocker.patch.object(client, '_execute')
@@ -39,7 +39,7 @@ def test_batched(mocker):
     # without data
     assert isinstance(
         client.start_batch().get_record_version(REQUEST['recordName']),
-        DeepstreamClient
+        Client
     )
     assert client._batch == [REQUEST]
     client._execute.assert_not_called()

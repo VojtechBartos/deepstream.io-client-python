@@ -1,6 +1,6 @@
 import pytest
 
-from deepstream_client import DeepstreamClient
+from deepstreamio_client import Client
 
 request = {
     'topic': 'record',
@@ -10,7 +10,7 @@ request = {
 
 
 def test_adding_to_not_created_batch():
-    client = DeepstreamClient("http://url.com")
+    client = Client("http://url.com")
 
     with pytest.raises(AssertionError):
         client.add_to_batch(request)
@@ -23,7 +23,7 @@ def test_adding_to_created_batch():
         'recordName': 'some-record',
     }
 
-    client = DeepstreamClient("http://url.com")
+    client = Client("http://url.com")
     client.start_batch()
 
     assert client.is_batched

@@ -6,15 +6,15 @@ Python client using the dsh HTTP API
 ## Installation
 
 ```sh
-pip install deepstream_client
+pip install deepstreamio_client
 ```
 
 ## Examples
 
 ```py
-from deepstream_client import DeepstreamClient
+from deepstreamio_client import Client
 
-client = DeepstreamClient("https://api.deepstreamhub.com/api/v1", {
+client = Client("https://api.deepstreamhub.com/api/v1", {
     "token": "xxxx-xxxx-xxxx-xxxx"
 })
 ```

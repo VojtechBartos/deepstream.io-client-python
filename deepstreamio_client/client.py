@@ -1,6 +1,6 @@
 import requests
 
-from .exceptions import DeepstreamHTTPError
+from .exceptions import DeepstreamioHTTPError
 
 
 class Client:
@@ -18,7 +18,7 @@ class Client:
     def start_batch(self):
         """Initiates a set of batch operations. No actual request will be sent
         until executeBatch is called
-        :return: {DeepstreamClient}
+        :return: {Client}
         """
         self._batch = []
         return self
@@ -37,14 +37,14 @@ class Client:
 
     def clear_batch(self):
         """Clear batch, empty items in the batch
-        :return: {DeepstreamClient}
+        :return: {Client}
         """
         self._batch = []
         return self
 
     def reset_batch(self):
         """Reset batch, stopping doing batch request(s)
-        :return: {DeepstreamClient}
+        :return: {Client}
         """
         self._batch = None
         return self
@@ -58,7 +58,7 @@ class Client:
 
     def add_to_batch(self, request):
         """Adding a request body to batch
-        :return: {DeepstreamClient}
+        :return: {Client}
         """
         assert isinstance(self._batch, list)
 
@@ -68,7 +68,7 @@ class Client:
     def get_record(self, name):
         """Retrieves data for a single record
         :param name: {str} record name
-        :return: {DeepstreamClient} for a batch and {dict} for non-batch
+        :return: {Client} for a batch and {dict} for non-batch
         """
         request = {
             'topic': 'record',
@@ -86,7 +86,7 @@ class Client:
         :param name: {str} record name
         :param data: {dict}
         :param path: {str} optional path
-        :return: {DeepstreamClient} for a batch and {bool} for non-batch
+        :return: {Client} for a batch and {bool} for non-batch
         """
         assert isinstance(data, dict), "Data has to be a dict type."
 
@@ -108,7 +108,7 @@ class Client:
     def delete_record(self, name):
         """Deletes a record
         :param name: {str} record name
-        :return: {DeepstreamClient} for a batch and {bool} for non-batch
+        :return: {Client} for a batch and {bool} for non-batch
         """
         request = {
             'topic': 'record',
@@ -124,7 +124,7 @@ class Client:
     def get_record_version(self, name):
         """Returns the current version for a record
         :param name: {str} record name
-        :return: {DeepstreamClient} for a batch and {int} for non-batch
+        :return: {Client} for a batch and {int} for non-batch
         """
         request = {
             'topic': 'record',
@@ -144,7 +144,7 @@ class Client:
         """Executes a Remote Procedure Call
         :param name: {str} record name
         :param data: {dict}
-        :return: {DeepstreamClient} for a batch and {dict} for non-batch
+        :return: {Client} for a batch and {dict} for non-batch
         """
         request = {
             'topic': 'rpc',
@@ -163,7 +163,7 @@ class Client:
         """Emits a deepstream event
         :param name: {str} record name
         :param data: {dict}
-        :return: {DeepstreamClient} for a batch and {bool} for non-batch
+        :return: {Client} for a batch and {bool} for non-batch
         """
         request = {
             'topic': 'event',
@@ -190,7 +190,7 @@ class Client:
                 data.get('result') == 'SUCCESS'
             ])
         except requests.exceptions.HTTPError as e:
-            raise DeepstreamHTTPError("%s: %s" % (
+            raise DeepstreamioHTTPError("%s: %s" % (
                 e.response.status_code, e.response.text
             ))
 

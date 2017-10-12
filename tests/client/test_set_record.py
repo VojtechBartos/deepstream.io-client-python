@@ -1,6 +1,6 @@
 import pytest
 
-from deepstream_client import DeepstreamClient
+from deepstreamio_client import Client
 
 URL = "http://url.com/"
 REQUEST = {
@@ -12,7 +12,7 @@ REQUEST = {
 
 
 def test_data_correct_type():
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     invalid = [
         [],
         True,
@@ -26,7 +26,7 @@ def test_data_correct_type():
 
 
 def test_not_batched(mocker):
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
 
     mocker.patch.object(client, '_execute')
@@ -53,7 +53,7 @@ def test_not_batched(mocker):
 
 
 def test_batched(mocker):
-    client = DeepstreamClient(URL)
+    client = Client(URL)
     client.auth_data = {"token": "some-token"}
 
     mocker.patch.object(client, '_execute')
@@ -63,7 +63,7 @@ def test_batched(mocker):
         client.start_batch().set_record(
             REQUEST['recordName'], REQUEST['data']
         ),
-        DeepstreamClient
+        Client
     )
     assert client._batch == [REQUEST]
     client._execute.assert_not_called()

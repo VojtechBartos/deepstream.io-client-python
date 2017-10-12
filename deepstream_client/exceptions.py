@@ -1,2 +1,0 @@
-class DeepstreamHTTPError(Exception):
-    pass
