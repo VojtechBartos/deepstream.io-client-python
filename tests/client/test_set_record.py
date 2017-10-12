@@ -60,7 +60,9 @@ def test_batched(mocker):
 
     # with data
     assert isinstance(
-        client.start_batch().set_record(REQUEST['recordName'], REQUEST['data']),
+        client.start_batch().set_record(
+            REQUEST['recordName'], REQUEST['data']
+        ),
         DeepstreamClient
     )
     assert client._batch == [REQUEST]
