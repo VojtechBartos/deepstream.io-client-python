@@ -1,4 +1,4 @@
-from optx.lib.deepstream import DeepstreamClient
+from deepstream_client import DeepstreamClient
 
 
 def test_is_not_batched():

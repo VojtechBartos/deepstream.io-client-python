@@ -1,7 +1,7 @@
 import pytest
 import requests_mock
 
-from optx.lib.deepstream import DeepstreamClient, DeepstreamHTTPError
+from deepstream_client import DeepstreamClient, DeepstreamHTTPError
 
 URL = "http://url.com/"
 

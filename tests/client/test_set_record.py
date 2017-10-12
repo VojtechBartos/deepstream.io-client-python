@@ -1,6 +1,6 @@
 import pytest
 
-from optx.lib.deepstream import DeepstreamClient
+from deepstream_client import DeepstreamClient
 
 URL = "http://url.com/"
 REQUEST = {
