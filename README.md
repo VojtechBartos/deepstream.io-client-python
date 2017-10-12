@@ -1,7 +1,8 @@
 # deepstream.io-client-python
 
-Python client using the dsh HTTP API
+[![Build Status](https://travis-ci.org/VojtechBartos/deepstream.io-client-python.svg?branch=master)](https://travis-ci.org/VojtechBartos/deepstream.io-client-python)
 
+Python client using the dsh HTTP API
 
 ## Installation
 
