@@ -7,10 +7,7 @@ Python client using the dsh HTTP API
 ## Installation
 
 ```sh
-pip install git+https://github.com/VojtechBartos/deepstream.io-client-python.git#egg=deepstreamio_client
-
-# this won't work, haven't submitted package to pypi yet
-# pip install deepstreamio_client
+pip install deepstreamio_client
 ```
 
 ## Examples
