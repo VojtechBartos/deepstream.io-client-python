@@ -12,7 +12,7 @@ class Client:
         :param auth_data: {dict} any authentication information
         """
         self.url = url
-        self.auth_data = auth_data
+        self.auth_data = auth_data or {}
         self._batch = None
 
     def start_batch(self):
@@ -68,7 +68,8 @@ class Client:
     def get_record(self, name):
         """Retrieves data for a single record
         :param name: {str} record name
-        :return: {Client} for a batch and {dict} for non-batch
+        :return: {Client} for a batch and JSON serializable object for
+                          non-batch
         """
         request = {
             'topic': 'record',
@@ -84,12 +85,10 @@ class Client:
     def set_record(self, name, data, path=None):
         """Updates a records data. Can be called with a path for partial updates
         :param name: {str} record name
-        :param data: {dict}
+        :param data: JSON serializable object
         :param path: {str} optional path
         :return: {Client} for a batch and {bool} for non-batch
         """
-        assert isinstance(data, dict), "Data has to be a dict type."
-
         request = {
             'topic': 'record',
             'action': 'write',
@@ -143,8 +142,9 @@ class Client:
     def make_rpc(self, name, data=None):
         """Executes a Remote Procedure Call
         :param name: {str} record name
-        :param data: {dict}
-        :return: {Client} for a batch and {dict} for non-batch
+        :param data: JSON serializable object
+        :return: {Client} for a batch and JSON serializable object for
+                          non-batch
         """
         request = {
             'topic': 'rpc',
@@ -162,7 +162,7 @@ class Client:
     def emit_event(self, name, data=None):
         """Emits a deepstream event
         :param name: {str} record name
-        :param data: {dict}
+        :param data: JSON serializable object
         :return: {Client} for a batch and {bool} for non-batch
         """
         request = {
