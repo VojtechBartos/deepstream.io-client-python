@@ -48,5 +48,6 @@ response = client \
 
 ## Todo's
 
+- use PBR and bumpversion
 - documentation
 - coverage
