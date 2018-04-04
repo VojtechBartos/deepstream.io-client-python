@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 
 from deepstreamio_client import Client
@@ -11,18 +13,10 @@ REQUEST = {
 }
 
 
-def test_data_correct_type():
+def test_not_json_serializable_record_data():
     client = Client(URL)
-    invalid = [
-        [],
-        True,
-        None,
-        1,
-        "hoj"
-    ]
-    for item in invalid:
-        with pytest.raises(AssertionError):
-            client.set_record('record', item)
+    with pytest.raises(TypeError):
+        client.set_record('record', datetime.utcnow())
 
 
 def test_not_batched(mocker):
