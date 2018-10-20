@@ -18,10 +18,12 @@ def test_not_json_serializable_record_data():
     with pytest.raises(AssertionError):
         client.set_list('list', datetime.utcnow())
 
+
 def test_not_array_list_data():
     client = Client(URL)
     with pytest.raises(AssertionError):
         client.set_list('list', {'1': '1'})
+
 
 def test_not_batched(mocker):
     client = Client(URL)
