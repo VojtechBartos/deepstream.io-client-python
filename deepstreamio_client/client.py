@@ -83,7 +83,7 @@ class Client:
         return body[0]
 
     def set_record(self, name, data, path=None):
-        """Updates a records data. Can be called with a path for partial updates
+        """Updates a record's data. Can be called with a path for partial updates
         :param name: {str} record name
         :param data: JSON serializable object
         :param path: {str} optional path
@@ -138,6 +138,60 @@ class Client:
             return
 
         return body[0]['version']
+
+    def get_list(self, name):
+        """Retrieves data for a single list
+        :param name: {str} list name
+        :return: {Client} for a batch and JSON serializable object for
+                          non-batch
+        """
+        request = {
+            'topic': 'list',
+            'action': 'read',
+            'listName': name,
+        }
+        if self.is_batched:
+            return self.add_to_batch(request)
+
+        _, body = self._execute([request])
+        return body[0]
+
+    def set_list(self, name, data):
+        """Updates a list's data.
+        :param name: {str} record name
+        :param data: list of strings
+        :return: {Client} for a batch and {bool} for non-batch
+        """
+        assert isinstance(data, list)
+
+        request = {
+            'topic': 'list',
+            'action': 'write',
+            'listName': name,
+            'data': data
+        }
+
+        if self.is_batched:
+            return self.add_to_batch(request)
+
+        _, body = self._execute([request])
+        return body[0]
+
+    def delete_list(self, name):
+        """Deletes a list
+        :param name: {str} list name
+        :return: {Client} for a batch and {bool} for non-batch
+        """
+        request = {
+            'topic': 'list',
+            'action': 'delete',
+            'listName': name
+        }
+        if self.is_batched:
+            return self.add_to_batch(request)
+
+        success, _ = self._execute([request])
+        return success
 
     def make_rpc(self, name, data=None):
         """Executes a Remote Procedure Call
